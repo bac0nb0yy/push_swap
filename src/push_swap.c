@@ -6,20 +6,40 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 06:24:33 by dtelnov           #+#    #+#             */
-/*   Updated: 2023/02/15 08:48:04 by dtelnov          ###   ########.fr       */
+/*   Updated: 2023/02/15 09:59:55 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
+void	push_back(t_node *node, int data)
+{
+	t_node	*tmp;
+
+	tmp = node;
+	node->data = data;
+	node = node->next;
+	node->prev = tmp;
+	node->next = NULL;
+}
+
 int	parsing_atoi(char *s)
 {
 	int	result;
+	int	i;
+	int	sign;
 
-	result = 0;
-	while (n[i])
+	i = 0;
+	sign = 0;
+	if (s[0] == '-')
 	{
-		if (ft_isdigit(n[i]) == 0)
+		sign = 1;
+		++i;
+	}
+	result = 0;
+	while (s[i])
+	{
+		if (ft_isdigit(s[i]) == 0)
 			(ft_printf("Incorrect numbers given"), exit(EXIT_FAILURE));
 		if (result > INT_MAX / 10)
 			return (-1 * (sign == 1));
@@ -30,14 +50,13 @@ int	parsing_atoi(char *s)
 	return (result);
 }
 
-t_stack	stack_new(int data)
+void	init_node(t_node *node, int data, t_stack *stack)
 {
-	t_stack	stack;
-
-	stack.data = data;
-	stack.prev = NULL;
-	stack.next = NULL;
-	return (stack);
+	node->data = data;
+	node->prev = NULL;
+	node->next = NULL;
+	stack->head = *node;
+	stack->tail = *node;
 }
 
 void	swap_xor(int *x, int *y)
@@ -47,12 +66,12 @@ void	swap_xor(int *x, int *y)
 	*x ^= *y;
 }
 
-int	len_stack(t_stack *stack)
+int	len_node(t_node *node)
 {
-	t_stack	*tmp;
+	t_node	*tmp;
 	int		i;
 
-	tmp = stack;
+	tmp = node;
 	i = 0;
 	while (tmp)
 	{
@@ -62,61 +81,76 @@ int	len_stack(t_stack *stack)
 	return (i);
 }
 
-void	sa(t_stack *stack)
+void	sa(t_node *node)
 {
-	t_stack	*tmp;
-	t_stack	*before;
+	t_node	*tmp;
+	t_node	*before;
 
-	tmp = stack;
+	tmp = node;
 	before = tmp;
-	if (len_stack(stack) < 2)
+	if (len_node(node) < 2)
 		return ;
-	while (stack->next)
+	while (node->next)
 	{
-		before = stack;
-		stack = stack->next;
+		before = node;
+		node = node->next;
 	}
-	swap_xor(&before->data, &stack->data);
-	stack = tmp;
+	swap_xor(&before->data, &node->data);
+	node = tmp;
 }
 
-void	sb(t_stack *stack)
+void	sb(t_node *node)
 {
-	t_stack	*tmp;
-	t_stack	*before;
+	t_node	*tmp;
+	t_node	*before;
 
-	tmp = stack;
+	tmp = node;
 	before = tmp;
-	if (len_stack(stack) < 2)
+	if (len_node(node) < 2)
 		return ;
-	while (stack->next)
+	while (node->next)
 	{
-		before = stack;
-		stack = stack->next;
+		before = node;
+		node = node->next;
 	}
-	swap_xor(&before->data, &stack->data);
-	stack = tmp;
+	swap_xor(&before->data, &node->data);
+	node = tmp;
 }
 
-void	ss(t_stack *stack_a, t_stack *stack_b)
+void	display_node(t_node *node)
 {
-	sa(stack_a);
-	sb(stack_b);
+	t_node	*tmp;
+
+	tmp = node;
+	while (node->prev)
+	{
+
+	}
 }
 
-void	pa(t_stack *stack)
-{
-	t_stack	*tmp;
-	t_stack	*before;
+// void	ss(t_node *node_a, t_node *node_b)
+// {
+// 	sa(node_a);
+// 	sb(node_b);
+// }
+
+// void	pa(t_node *node)
+// {
+// 	t_node	*tmp;
+// 	t_node	*before;
 
 	
-}
+// }
 
-int	main(void)
+int	main(int ac, char **av)
 {
-	t_stack	A;
-	t_stack	B;
-	t_stack	C;
+	t_node	A;
+	t_node	B;
+	t_node	C;
+	int		i;
+	int		data;
+	t_node	node;
+	t_stack	stack;
 
 	A.data = 5;
 	A.next = &B;
@@ -127,4 +161,21 @@ int	main(void)
 	printf("Derniere valeur: %d\nAvant derniere valeur: %d\n", C.data, B.data);
 	sa(&A);
 	printf("Derniere valeur: %d\nAvant derniere valeur: %d\n", C.data, B.data);
+	(void)ac;
+	i = 1;
+	data = 0;
+	ft_printf("Argument 1: %s\n", av[1]);
+	while (av[i])
+	{
+		data = parsing_atoi(av[i]);
+		ft_printf("Data -> %d\n", data);
+		if (i == 1)
+		{
+			init_node(&node, data, &stack);
+			ft_printf("Addresse memoire de head: %d\nAddresse memoire de tail: %d\n", stack.head, stack.tail);
+		}
+		else
+			push_back(&node, data);
+		++i;
+	}
 }
