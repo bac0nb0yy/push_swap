@@ -6,7 +6,7 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 06:16:50 by dtelnov           #+#    #+#             */
-/*   Updated: 2023/02/15 09:09:18 by dtelnov          ###   ########.fr       */
+/*   Updated: 2023/04/15 21:12:05 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdbool.h>
 # include <stdio.h>
 # include <limits.h>
 # include "../ft_printf/ft_printf.h"
@@ -34,8 +35,9 @@ typedef struct s_node
 
 typedef struct s_stack
 {
-	struct s_node	head;
-	struct s_node	tail;
+	struct s_node	*head;
+	struct s_node	*tail;
+	int				len;
 }		t_stack;
 
 #endif

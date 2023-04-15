@@ -6,176 +6,394 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 06:24:33 by dtelnov           #+#    #+#             */
-/*   Updated: 2023/02/15 09:59:55 by dtelnov          ###   ########.fr       */
+/*   Updated: 2023/04/15 22:58:51 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void	push_back(t_node *node, int data)
+void	clear_stack(t_stack *stack)
 {
+	int		i;
 	t_node	*tmp;
 
-	tmp = node;
-	node->data = data;
-	node = node->next;
-	node->prev = tmp;
-	node->next = NULL;
-}
-
-int	parsing_atoi(char *s)
-{
-	int	result;
-	int	i;
-	int	sign;
-
 	i = 0;
-	sign = 0;
-	if (s[0] == '-')
+	tmp = stack->head;
+	while (stack && i < stack->len)
 	{
-		sign = 1;
+		stack->head = tmp->next;
+		free(tmp);
+		tmp = stack->head;
 		++i;
 	}
+	stack = NULL;
+}
+
+void	link_head_tail(t_stack *stack)
+{
+	if (stack->head && stack->tail)
+	{
+		stack->head->prev = stack->tail;
+		stack->tail->next = stack->head;
+	}
+}
+
+void	push_back(t_stack *stack, int data)
+{
+	t_node	*current_node;
+
+	current_node = malloc(sizeof(t_node));
+	current_node->data = data;
+	if (stack->len == 0)
+	{
+		stack->head = current_node;
+		stack->tail = current_node;
+		link_head_tail(stack);
+		stack->len++;
+		return ;
+	}
+	current_node->prev = stack->tail;
+	stack->tail->next = current_node;
+	stack->tail = current_node;
+	link_head_tail(stack);
+	stack->len++;
+}
+
+void	swap_xor(int *a, int *b)
+{
+	*a = *a ^ *b;
+	*b = *b ^ *a;
+	*a = *a ^ *b;
+}
+
+bool	overflow_underflow_check(int *n, char *s, int *i)
+{
+	static int	overflow_detector = INT_MAX / 10;
+
+	if (*n > overflow_detector)
+		return (true);
+	*n = (*n * 10) + (s[*i] - 48);
+	if (*n < 0)
+		return (true);
+	return (false);
+}
+
+int	ft_max(int a, int b)
+{
+	if (a >= b)
+		return (a);
+	return (b);
+}
+
+int	ft_min(int a, int b)
+{
+	if (a <= b)
+		return (a);
+	return (b);
+}
+
+char	*ft_longest_array(char *s1, char*s2)
+{
+	const int	len_a = ft_strlen(s1);
+	const int	len_b = ft_strlen(s2);
+
+	if (ft_max(len_a, len_b) == len_a)
+		return (s1);
+	return (s2);
+}
+
+bool	ft_compstr(char *s1, char *s2)
+{
+	char	*smallest_array;
+	char	*longest_array;
+	int		i;
+
+	i = 0;
+	longest_array = ft_longest_array(s1, s2);
+	if (longest_array == s1)
+		smallest_array = s2;
+	else
+		smallest_array = s1;
+	while (longest_array[i])
+	{
+		if (longest_array[i] != smallest_array[i])
+			return (false);
+		++i;
+	}
+	return (true);
+}
+
+void	clean_exit_error(char *message_error, int fd, t_stack *stack_a,
+	t_stack *stack_b)
+{
+	(ft_putstr_fd(message_error, fd), clear_stack(stack_a),
+		clear_stack(stack_b), exit(EXIT_FAILURE));
+}
+
+int	parsing_atoi(char *s, t_stack *stack_a, t_stack *stack_b)
+{
+	int			result;
+	int			i;
+	int			sign;
+
+	if (ft_compstr(s, "-2147483648"))
+		return (INT_MIN);
+	i = 0;
+	sign = -1 * (s[0] == '-');
 	result = 0;
+	if (sign == -1)
+		++i;
+	else
+		sign = 1;
 	while (s[i])
 	{
 		if (ft_isdigit(s[i]) == 0)
-			(ft_printf("Incorrect numbers given"), exit(EXIT_FAILURE));
-		if (result > INT_MAX / 10)
-			return (-1 * (sign == 1));
-		result = (result * 10) + (s[i++] - 48);
-		if (result < 0)
-			return (-1 * (sign == 1));
+			clean_exit_error("Error\nIncorrect numbers given\n", 2, stack_a,
+				stack_b);
+		if (overflow_underflow_check(&result, s, &i))
+			clean_exit_error("Error\nOverflow/Underflow\n", 2, stack_a, stack_b);
+		++i;
 	}
-	return (result);
+	return (result * sign);
 }
 
-void	init_node(t_node *node, int data, t_stack *stack)
+void	display_stack(t_stack *stack_a)
 {
-	node->data = data;
-	node->prev = NULL;
-	node->next = NULL;
-	stack->head = *node;
-	stack->tail = *node;
-}
-
-void	swap_xor(int *x, int *y)
-{
-	*x ^= *y;
-	*y ^= *x;
-	*x ^= *y;
-}
-
-int	len_node(t_node *node)
-{
-	t_node	*tmp;
 	int		i;
+	t_node	*tmp;
 
-	tmp = node;
 	i = 0;
-	while (tmp)
+	tmp = stack_a->head;
+	while (i < stack_a->len)
 	{
+		ft_printf("Node %d: %d\n", i + 1, tmp->data);
 		tmp = tmp->next;
 		++i;
 	}
-	return (i);
+	ft_printf("------------\n");
 }
 
-void	sa(t_node *node)
+void	sa(t_stack *stack_a)
 {
-	t_node	*tmp;
-	t_node	*before;
-
-	tmp = node;
-	before = tmp;
-	if (len_node(node) < 2)
+	if (stack_a->len < 3)
 		return ;
-	while (node->next)
-	{
-		before = node;
-		node = node->next;
-	}
-	swap_xor(&before->data, &node->data);
-	node = tmp;
+	swap_xor(&stack_a->head->data, &stack_a->head->next->data);
 }
 
-void	sb(t_node *node)
+void	sb(t_stack *stack_b)
 {
-	t_node	*tmp;
-	t_node	*before;
-
-	tmp = node;
-	before = tmp;
-	if (len_node(node) < 2)
+	if (stack_b->len < 3)
 		return ;
-	while (node->next)
-	{
-		before = node;
-		node = node->next;
-	}
-	swap_xor(&before->data, &node->data);
-	node = tmp;
+	swap_xor(&stack_b->head->data, &stack_b->head->next->data);
 }
 
-void	display_node(t_node *node)
+void	ss(t_stack *stack_a, t_stack *stack_b)
 {
+	sa(stack_a);
+	sb(stack_b);
+}
+
+void	pa(t_stack *stack_a, t_stack *stack_b)
+{
+	t_node	*new_node;
 	t_node	*tmp;
 
-	tmp = node;
-	while (node->prev)
+	if (!stack_b || !stack_b->head || stack_b->len == 0)
+		return ;
+	new_node = malloc(sizeof(t_node));
+	new_node->data = stack_b->head->data;
+	new_node->next = stack_a->head;
+	if (stack_a->len > 0)
+		stack_a->head->prev = new_node;
+	else
+		stack_a->tail = new_node;
+	stack_a->head = new_node;
+	link_head_tail(stack_a);
+	stack_a->len++;
+	tmp = stack_b->head;
+	if (stack_b->len > 1)
+		stack_b->head = stack_b->head->next;
+	else
 	{
+		stack_b->head = NULL;
+		stack_b->tail = stack_b->head;
+	}
+	stack_b->len--;
+	free(tmp);
+	link_head_tail(stack_b);
+}
 
+
+void	pb(t_stack *stack_a, t_stack *stack_b)
+{
+	t_node	*new_node;
+	t_node	*tmp;
+
+	if (!stack_a || !stack_a->head || stack_a->len == 0)
+		return ;
+	new_node = malloc(sizeof(t_node));
+	new_node->data = stack_a->head->data;
+	new_node->next = stack_b->head;
+	if (stack_b->len > 0)
+		stack_b->head->prev = new_node;
+	else
+		stack_b->tail = new_node;
+	stack_b->head = new_node;
+	link_head_tail(stack_b);
+	stack_b->len++;
+	tmp = stack_a->head;
+	if (stack_a->len > 1)
+		stack_a->head = stack_a->head->next;
+	else
+	{
+		stack_a->head = NULL;
+		stack_a->tail = stack_a->head;
+	}
+	stack_a->len--;
+	free(tmp);
+	link_head_tail(stack_a);
+}
+
+void	ra(t_stack *stack_a)
+{
+	t_node	*temp;
+
+	if (stack_a && stack_a->head && stack_a->len > 1)
+	{
+		temp = stack_a->head;
+		stack_a->head = stack_a->head->next;
+		temp->prev = stack_a->tail;
+		stack_a->tail->next = temp;
+		stack_a->tail = temp;
+		link_head_tail(stack_a);
 	}
 }
 
-// void	ss(t_node *node_a, t_node *node_b)
-// {
-// 	sa(node_a);
-// 	sb(node_b);
-// }
+void	rb(t_stack *stack_b)
+{
+	t_node	*temp;
 
-// void	pa(t_node *node)
-// {
-// 	t_node	*tmp;
-// 	t_node	*before;
+	if (stack_b && stack_b->head && stack_b->len > 1)
+	{
+		temp = stack_b->head;
+		stack_b->head = stack_b->head->next;
+		temp->prev = stack_b->tail;
+		stack_b->tail->next = temp;
+		stack_b->tail = temp;
+		link_head_tail(stack_b);
+	}
+}
 
-	
-// }
+void	rr(t_stack *stack_a, t_stack *stack_b)
+{
+	ra(stack_a);
+	rb(stack_b);
+}
+
+void	rra(t_stack *stack_a)
+{
+	t_node	*temp;
+
+	if (stack_a && stack_a->head && stack_a->len > 1)
+	{
+		temp = stack_a->tail;
+		stack_a->tail = stack_a->tail->prev;
+		temp->next = stack_a->head;
+		stack_a->head->prev = temp;
+		stack_a->head = temp;
+		link_head_tail(stack_a);
+	}
+}
+
+void	rrb(t_stack *stack_b)
+{
+	t_node	*temp;
+
+	if (stack_b && stack_b->head && stack_b->len > 1)
+	{
+		temp = stack_b->tail;
+		stack_b->tail = stack_b->tail->prev;
+		temp->next = stack_b->head;
+		stack_b->head->prev = temp;
+		stack_b->head = temp;
+		link_head_tail(stack_b);
+	}
+}
+
+void	rrr(t_stack *stack_a, t_stack *stack_b)
+{
+	rra(stack_a);
+	rrb(stack_b);
+}
+
+
+
+bool	check_doublons(int data, t_stack *stack_a, t_stack *stack_b)
+{
+	int		i;
+	t_node	*tmp;
+
+	i = 0;
+	tmp = stack_a->head;
+	while (i < stack_a->len)
+	{
+		if (tmp->data == data)
+			return (true);
+		tmp = tmp->next;
+		++i;
+	}
+	i = 0;
+	tmp = stack_b->head;
+	while (i < stack_b->len)
+	{
+		if (tmp->data == data)
+			return (true);
+		tmp = tmp->next;
+		++i;
+	}
+	return (false);
+}
 
 int	main(int ac, char **av)
 {
-	t_node	A;
-	t_node	B;
-	t_node	C;
+	t_stack	stack_a;
+	t_stack	stack_b;
 	int		i;
-	int		data;
-	t_node	node;
-	t_stack	stack;
+	int		new_data;
 
-	A.data = 5;
-	A.next = &B;
-	B.data = 8;
-	B.next = &C;
-	C.data = 9;
-	C.next = NULL;
-	printf("Derniere valeur: %d\nAvant derniere valeur: %d\n", C.data, B.data);
-	sa(&A);
-	printf("Derniere valeur: %d\nAvant derniere valeur: %d\n", C.data, B.data);
-	(void)ac;
+	stack_a.len = 0;
+	stack_b.len = 0;
 	i = 1;
-	data = 0;
-	ft_printf("Argument 1: %s\n", av[1]);
-	while (av[i])
+	while (i < ac)
 	{
-		data = parsing_atoi(av[i]);
-		ft_printf("Data -> %d\n", data);
-		if (i == 1)
-		{
-			init_node(&node, data, &stack);
-			ft_printf("Addresse memoire de head: %d\nAddresse memoire de tail: %d\n", stack.head, stack.tail);
-		}
-		else
-			push_back(&node, data);
-		++i;
+		new_data = parsing_atoi(av[i], &stack_a, &stack_b);
+		if (check_doublons(new_data, &stack_a, &stack_b))
+			clean_exit_error("Error\nDoublons detected\n", 2, &stack_a, &stack_b);
+		push_back(&stack_a, new_data);
+		i++;
 	}
+	display_stack(&stack_a);
+	sa(&stack_a);
+	display_stack(&stack_a);
+	pb(&stack_a, &stack_b);
+	pb(&stack_a, &stack_b);
+	pb(&stack_a, &stack_b);
+	display_stack(&stack_a);
+	display_stack(&stack_b);
+	rr(&stack_a, &stack_b);
+	display_stack(&stack_a);
+	display_stack(&stack_b);
+	rrr(&stack_a, &stack_b);
+	display_stack(&stack_a);
+	display_stack(&stack_b);
+	sa(&stack_a);
+	display_stack(&stack_a);
+	display_stack(&stack_b);
+	pa(&stack_a, &stack_b);
+	pa(&stack_a, &stack_b);
+	pa(&stack_a, &stack_b);
+	display_stack(&stack_a);
+	display_stack(&stack_b);
+	clear_stack(&stack_a);
+	clear_stack(&stack_b);
 }

@@ -6,7 +6,7 @@
 #    By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/15 07:36:15 by dtelnov           #+#    #+#              #
-#    Updated: 2023/02/15 07:39:50 by dtelnov          ###   ########.fr        #
+#    Updated: 2023/04/15 23:06:33 by dtelnov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,8 +37,8 @@ ${NAME}:
 			${MAKE} -C ${FT_PRINTF}
 			${MAKE} push
 
-push:		${OBJ_S}
-			@${CC} ${OBJ_S} -L ${FT_PRINTF} -lftprintf -o push
+push:	${OBJ_S}
+			@${CC} ${OBJ_S} -L ${FT_PRINTF} -lftprintf -o ${NAME}
 
 ${OBJ_DIR}%.o: ${SRC_DIR}%.c | ${OBJF}
 			@${CC} ${CFLAGS} -I ${INCLUDE} -I ${FT_PRINTF}/includes -c $< -o $@
@@ -51,8 +51,7 @@ clean:
 
 fclean:		clean
 			make fclean -C ${FT_PRINTF}
-			@${RM} push
-
+			@${RM} ${NAME}
 re:			fclean all
 
 .PHONY:		all clean fclean re
