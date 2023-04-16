@@ -6,7 +6,7 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 06:16:50 by dtelnov           #+#    #+#             */
-/*   Updated: 2023/04/15 23:49:12 by dtelnov          ###   ########.fr       */
+/*   Updated: 2023/04/16 21:14:39 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_node
 	int					data;
 	struct s_node		*prev;
 	struct s_node		*next;
+	int					rank;
 }						t_node;
 
 typedef struct s_stack
@@ -65,4 +66,13 @@ void	clear_stack(t_stack *stack);
 void	link_head_tail(t_stack *stack);
 void	push_back(t_stack *stack, int data);
 void	display_stack(t_stack *stack_a);
+int		*initialize_array(t_stack *stack);
+void	display_array(int *array, t_stack *stack);
+void	rank_nodes(t_stack *stack);
+void	gnome_sort(int *array, int len_array);
+void	give_rank_to_node(int *sorted_array, t_stack *stack);
+void	case_rotate(t_stack *stack);
+void	case_swap(t_stack *stack);
+void	case_reverse_rotate(t_stack *stack);
+void	sort_three_numbers(t_stack *stack);
 #endif

@@ -6,7 +6,7 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 23:12:50 by dtelnov           #+#    #+#             */
-/*   Updated: 2023/04/15 23:13:32 by dtelnov          ###   ########.fr       */
+/*   Updated: 2023/04/16 19:53:19 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	display_stack(t_stack *stack_a)
 	tmp = stack_a->head;
 	while (i < stack_a->len)
 	{
-		ft_printf("Node %d: %d\n", i + 1, tmp->data);
+		ft_printf("Node %d: %d and his rank = %d\n", i + 1, tmp->data, tmp->rank);
 		tmp = tmp->next;
 		++i;
 	}
