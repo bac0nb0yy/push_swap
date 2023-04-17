@@ -6,7 +6,7 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 23:16:48 by dtelnov           #+#    #+#             */
-/*   Updated: 2023/04/15 23:17:23 by dtelnov          ###   ########.fr       */
+/*   Updated: 2023/04/17 04:19:39 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool	overflow_underflow_check(int *n, char *s, int *i)
 
 	if (*n > overflow_detector)
 		return (true);
-	*n = (*n * 10) + (s[*i] - 48);
+	*n = (*n * 10) + (s[*i] - '0');
 	if (*n < 0)
 		return (true);
 	return (false);
