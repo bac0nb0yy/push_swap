@@ -6,7 +6,7 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 06:16:50 by dtelnov           #+#    #+#             */
-/*   Updated: 2023/04/16 21:14:39 by dtelnov          ###   ########.fr       */
+/*   Updated: 2023/04/17 01:25:57 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,6 @@
 # include <stdio.h>
 # include <limits.h>
 # include "../ft_printf/ft_printf.h"
-
-typedef struct s_sorted
-{
-	int	data;
-	int	indice;
-}		t_sorted;
 
 typedef struct s_node
 {
@@ -71,8 +65,5 @@ void	display_array(int *array, t_stack *stack);
 void	rank_nodes(t_stack *stack);
 void	gnome_sort(int *array, int len_array);
 void	give_rank_to_node(int *sorted_array, t_stack *stack);
-void	case_rotate(t_stack *stack);
-void	case_swap(t_stack *stack);
-void	case_reverse_rotate(t_stack *stack);
 void	sort_three_numbers(t_stack *stack);
 #endif

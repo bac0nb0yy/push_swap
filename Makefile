@@ -6,7 +6,7 @@
 #    By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/15 07:36:15 by dtelnov           #+#    #+#              #
-#    Updated: 2023/04/16 20:50:12 by dtelnov          ###   ########.fr        #
+#    Updated: 2023/04/17 00:59:44 by dtelnov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ OBJ_DIR		= objs/
 FT_PRINTF	= ft_printf
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -g3
 
 RM			= rm -f
 

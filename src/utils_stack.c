@@ -6,7 +6,7 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 23:12:50 by dtelnov           #+#    #+#             */
-/*   Updated: 2023/04/16 19:53:19 by dtelnov          ###   ########.fr       */
+/*   Updated: 2023/04/17 01:00:20 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	push_back(t_stack *stack, int data)
 
 	current_node = malloc(sizeof(t_node));
 	current_node->data = data;
+	current_node->rank = -1;
 	if (stack->len == 0)
 	{
 		stack->head = current_node;

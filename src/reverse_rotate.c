@@ -6,7 +6,7 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 23:19:42 by dtelnov           #+#    #+#             */
-/*   Updated: 2023/04/15 23:19:53 by dtelnov          ###   ########.fr       */
+/*   Updated: 2023/04/17 02:03:20 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	rra(t_stack *stack_a)
 		stack_a->head = temp;
 		link_head_tail(stack_a);
 	}
+	ft_putstr_fd("rra\n", 1);
 }
 
 void	rrb(t_stack *stack_b)
@@ -40,10 +41,12 @@ void	rrb(t_stack *stack_b)
 		stack_b->head = temp;
 		link_head_tail(stack_b);
 	}
+	ft_putstr_fd("rrb\n", 1);
 }
 
 void	rrr(t_stack *stack_a, t_stack *stack_b)
 {
 	rra(stack_a);
 	rrb(stack_b);
+	ft_putstr_fd("rrr\n", 1);
 }
