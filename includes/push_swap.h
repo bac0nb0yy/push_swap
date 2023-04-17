@@ -6,7 +6,7 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 06:16:50 by dtelnov           #+#    #+#             */
-/*   Updated: 2023/04/17 01:25:57 by dtelnov          ###   ########.fr       */
+/*   Updated: 2023/04/17 05:27:20 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,5 @@ void	rank_nodes(t_stack *stack);
 void	gnome_sort(int *array, int len_array);
 void	give_rank_to_node(int *sorted_array, t_stack *stack);
 void	sort_three_numbers(t_stack *stack);
+void	sort_five_numbers(t_stack *stack_a, t_stack *stack_b);
 #endif

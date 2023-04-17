@@ -6,7 +6,7 @@
 #    By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/15 07:36:15 by dtelnov           #+#    #+#              #
-#    Updated: 2023/04/17 00:59:44 by dtelnov          ###   ########.fr        #
+#    Updated: 2023/04/17 05:27:33 by dtelnov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC_FILES_S	=	push_swap \
 				utils \
 				presort \
 				sort_three_numbers \
+				sort_five_numbers \
 
 OBJF		=	.cache_exists
 
