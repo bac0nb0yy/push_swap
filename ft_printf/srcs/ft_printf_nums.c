@@ -6,7 +6,7 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 08:05:35 by dtelnov           #+#    #+#             */
-/*   Updated: 2023/02/15 01:10:41 by dtelnov          ###   ########.fr       */
+/*   Updated: 2023/04/17 07:28:59 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	hdl_x(va_list args)
 		write(1, &HEXVALUES_LOWERCASE[0], 1);
 		return (1);
 	}
-	else if (number < 0)
+	else if ((int)number < 0)
 	{
 		write(1, "-", 1);
 		last_digit(-number, HEXVALUES_LOWERCASE, &len);
@@ -92,7 +92,7 @@ int	hdl_x_uppercase(va_list args)
 		write(1, &HEXVALUES_UPPERCASE[0], 1);
 		return (1);
 	}
-	else if (number < 0)
+	else if ((int)number < 0)
 	{
 		write(1, "-", 1);
 		last_digit(-number, HEXVALUES_UPPERCASE, &len);

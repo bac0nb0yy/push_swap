@@ -6,47 +6,58 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 23:19:42 by dtelnov           #+#    #+#             */
-/*   Updated: 2023/04/17 02:03:20 by dtelnov          ###   ########.fr       */
+/*   Updated: 2023/04/18 01:54:13 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void	rra(t_stack *stack_a)
+void	rra(t_stack *stack_a, int amount)
 {
 	t_node	*temp;
 
-	if (stack_a && stack_a->head && stack_a->len > 1)
+	while (amount--)
 	{
-		temp = stack_a->tail;
-		stack_a->tail = stack_a->tail->prev;
-		temp->next = stack_a->head;
-		stack_a->head->prev = temp;
-		stack_a->head = temp;
-		link_head_tail(stack_a);
+		if (stack_a && stack_a->head && stack_a->len > 1)
+		{
+			temp = stack_a->tail;
+			stack_a->tail = stack_a->tail->prev;
+			temp->next = stack_a->head;
+			stack_a->head->prev = temp;
+			stack_a->head = temp;
+			(link_head_tail(stack_a), ft_putstr_fd("rra\n", 1));
+		}
 	}
-	ft_putstr_fd("rra\n", 1);
 }
 
-void	rrb(t_stack *stack_b)
+void	rrb(t_stack *stack_b, int amount)
 {
 	t_node	*temp;
 
-	if (stack_b && stack_b->head && stack_b->len > 1)
+	while (amount--)
 	{
-		temp = stack_b->tail;
-		stack_b->tail = stack_b->tail->prev;
-		temp->next = stack_b->head;
-		stack_b->head->prev = temp;
-		stack_b->head = temp;
-		link_head_tail(stack_b);
+		if (stack_b && stack_b->head && stack_b->len > 1)
+		{
+			temp = stack_b->tail;
+			stack_b->tail = stack_b->tail->prev;
+			temp->next = stack_b->head;
+			stack_b->head->prev = temp;
+			stack_b->head = temp;
+			(link_head_tail(stack_b), ft_putstr_fd("rrb\n", 1));
+		}
 	}
-	ft_putstr_fd("rrb\n", 1);
 }
 
-void	rrr(t_stack *stack_a, t_stack *stack_b)
+void	rrr(t_stack *stack_a, t_stack *stack_b, int amount)
 {
-	rra(stack_a);
-	rrb(stack_b);
-	ft_putstr_fd("rrr\n", 1);
+	while (amount--)
+		(rra(stack_a, 1), rrb(stack_b, 1), ft_putstr_fd("rrr\n", 1));
+}
+
+void	r_or_rr_amount(t_stack *stack, int pos)
+{
+	if (pos < stack->len / 2)
+		return (ra(stack, pos));
+	if (pos >= stack->len / 2)
+		return (rra(stack, stack->len - pos));
 }
