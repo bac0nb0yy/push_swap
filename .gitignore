@@ -1,2 +1,8 @@
 # Ignore all cached files
 .*
+
+# Ignore all objects files
+*.o
+
+# Ignore all files ended with .out
+*.out
