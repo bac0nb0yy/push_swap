@@ -6,7 +6,7 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 06:24:33 by dtelnov           #+#    #+#             */
-/*   Updated: 2023/04/18 02:37:43 by dtelnov          ###   ########.fr       */
+/*   Updated: 2023/04/20 19:16:01 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	main(int ac, char **av)
 	t_stack	stack_b;
 
 	(initialize_stack(&stack_a), initialize_stack(&stack_b));
+	parse_stack(&stack_a, &stack_b, av, ac);
+	sort(&stack_a, &stack_b);
 	clear_stack(&stack_a);
-	clear_stack(&stack_b);
 }

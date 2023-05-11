@@ -6,7 +6,7 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 06:16:50 by dtelnov           #+#    #+#             */
-/*   Updated: 2023/04/18 02:38:06 by dtelnov          ###   ########.fr       */
+/*   Updated: 2023/04/20 20:10:47 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ typedef struct s_node
 	struct s_node		*prev;
 	struct s_node		*next;
 	int					rank;
+	int					position;
+	int					target_pos;
+	int					cost_a;
+	int					cost_b;
 }						t_node;
 
 typedef struct s_stack
@@ -36,14 +40,14 @@ typedef struct s_stack
 }		t_stack;
 
 void	swap_xor(int *a, int *b);
-void	sa(t_stack *stack_a, int amount);
-void	sb(t_stack *stack_b, int amount);
+void	sa(t_stack *stack_a, int amount, int all);
+void	sb(t_stack *stack_b, int amount, int all);
 void	ss(t_stack *stack_a, t_stack *stack_b, int amount);
-void	rra(t_stack *stack_a, int amount);
-void	rrb(t_stack *stack_b, int amount);
+void	rra(t_stack *stack_a, int amount, int all);
+void	rrb(t_stack *stack_b, int amount, int all);
 void	rrr(t_stack *stack_a, t_stack *stack_b, int amount);
-void	ra(t_stack *stack_a, int amount);
-void	rb(t_stack *stack_b, int amount);
+void	ra(t_stack *stack_a, int amount, int all);
+void	rb(t_stack *stack_b, int amount, int all);
 void	rr(t_stack *stack_a, t_stack *stack_b, int amount);
 void	pa(t_stack *stack_a, t_stack *stack_b, int amount);
 void	pb(t_stack *stack_a, t_stack *stack_b, int amount);
@@ -75,4 +79,18 @@ int		find_pos(t_stack *stack, int to_find);
 void	sort_a_big_or_small(t_stack *stack_a, t_stack *stack_b);
 int		pos_for_a(t_stack *stack_a, t_stack *stack_b, int pos);
 void	parse_stack(t_stack *stack_a, t_stack *stack_b, char **av, int ac);
+void	clear_two_stacks(t_stack *stack_a, t_stack *stack_b);
+void	get_position(t_stack *stack);
+void	sort(t_stack *stack_a, t_stack *stack_b);
+void	shift_stack(t_stack *stack_a);
+void	push_all_save_three(t_stack *stack_a, t_stack *stack_b);
+void	get_target_position(t_stack *stack_a, t_stack *stack_b);
+int		get_target(t_stack *stack_a, int b_idx,
+								int target_idx, int target_pos);
+void	assign_index_and_position(t_node *tmp, int *target_idx, int *target_pos);
+int		get_lowest_index_position(t_stack *stack);
+int		nb_abs(int nb);
+void	get_cost(t_stack *stack_a, t_stack *stack_b);
+void	do_cheapest_move(t_stack *stack_a, t_stack *stack_b);
+void	do_move(t_stack *stack_a, t_stack *stack_b, int cost_a, int cost_b);
 #endif

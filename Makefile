@@ -6,7 +6,7 @@
 #    By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/15 07:36:15 by dtelnov           #+#    #+#              #
-#    Updated: 2023/04/18 01:56:26 by dtelnov          ###   ########.fr        #
+#    Updated: 2023/04/20 17:29:52 by dtelnov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,10 @@ SRC_FILES_S	=	push_swap \
 				utils \
 				utils2 \
 				presort \
+				sort \
+				position \
+				cost \
+				move \
 				sort_three_numbers \
 				sort_five_numbers \
 

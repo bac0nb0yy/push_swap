@@ -6,7 +6,7 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 17:05:51 by dtelnov           #+#    #+#             */
-/*   Updated: 2023/04/17 05:00:16 by dtelnov          ###   ########.fr       */
+/*   Updated: 2023/04/20 18:58:41 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	give_rank_to_node_and_free_array(int *sorted_array, t_stack *stack)
 		tmp = curr;
 		while (sorted_array[i] != tmp->data)
 			tmp = tmp->next;
-		tmp->rank = i;
+		tmp->rank = i + 1;
 		curr = curr->next;
 		++i;
 	}

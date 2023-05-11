@@ -6,13 +6,13 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 23:18:59 by dtelnov           #+#    #+#             */
-/*   Updated: 2023/04/17 19:40:29 by dtelnov          ###   ########.fr       */
+/*   Updated: 2023/04/20 20:08:01 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void	ra(t_stack *stack_a, int amount)
+void	ra(t_stack *stack_a, int amount, int all)
 {
 	t_node	*temp;
 
@@ -25,12 +25,14 @@ void	ra(t_stack *stack_a, int amount)
 			temp->prev = stack_a->tail;
 			stack_a->tail->next = temp;
 			stack_a->tail = temp;
-			(link_head_tail(stack_a), ft_putstr_fd("ra\n", 1));
+			link_head_tail(stack_a);
+			if (all == 0)
+				ft_putstr_fd("ra\n", 1);
 		}
 	}
 }
 
-void	rb(t_stack *stack_b, int amount)
+void	rb(t_stack *stack_b, int amount, int all)
 {
 	t_node	*temp;
 
@@ -43,7 +45,9 @@ void	rb(t_stack *stack_b, int amount)
 			temp->prev = stack_b->tail;
 			stack_b->tail->next = temp;
 			stack_b->tail = temp;
-			(link_head_tail(stack_b), ft_putstr_fd("rb\n", 1));
+			link_head_tail(stack_b);
+			if (all == 0)
+				ft_putstr_fd("rb\n", 1);
 		}
 	}
 }
@@ -51,5 +55,5 @@ void	rb(t_stack *stack_b, int amount)
 void	rr(t_stack *stack_a, t_stack *stack_b, int amount)
 {
 	while (amount--)
-		(ra(stack_a, 1), rb(stack_b, 1), ft_putstr_fd("rr\n", 1));
+		(ra(stack_a, 1, 1), rb(stack_b, 1, 1), ft_putstr_fd("rr\n", 1));
 }

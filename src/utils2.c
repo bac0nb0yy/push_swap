@@ -48,6 +48,21 @@ int	find_biggest(t_stack *stack)
 	return (maxi);
 }
 
+void	get_position(t_stack *stack)
+{
+	t_node	*tmp;
+	int		i;
+
+	tmp = stack->head;
+	i = 0;
+	while (i < stack->len)
+	{
+		tmp->position = i;
+		tmp = tmp->next;
+		i++;
+	}
+}
+
 int	find_pos(t_stack *stack, int to_find)
 {
 	int		i;

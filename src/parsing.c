@@ -6,7 +6,7 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 23:16:48 by dtelnov           #+#    #+#             */
-/*   Updated: 2023/04/18 02:37:48 by dtelnov          ###   ########.fr       */
+/*   Updated: 2023/04/20 17:37:34 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@ void	parse_stack(t_stack *stack_a, t_stack *stack_b, char **av, int ac)
 	i = 1;
 	while (i < ac)
 	{
-		new_data = parsing_atoi(av[i], &stack_a, &stack_b);
-		if (check_doublons(new_data, &stack_a, &stack_b))
-			clean_exit_error("Error\nDoublons detected\n", 2, &stack_a, &stack_b);
-		push_back(&stack_a, new_data);
+		new_data = parsing_atoi(av[i], stack_a, stack_b);
+		if (check_doublons(new_data, stack_a, stack_b))
+			clean_exit_error("Error\nDoublons detected\n", 2, stack_a, stack_b);
+		push_back(stack_a, new_data);
 		i++;
 	}
+	rank_nodes(stack_a);
 }
 
 bool	overflow_underflow_check(int *n, char *s, int *i)
