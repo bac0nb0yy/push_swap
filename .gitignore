@@ -6,3 +6,8 @@
 
 # Ignore all files ended with .out
 *.out
+
+# Ignore tester
+push_swap_tester
+
+push_swap_visualizer
