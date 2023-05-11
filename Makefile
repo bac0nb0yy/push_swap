@@ -5,68 +5,92 @@
 #                                                     +:+ +:+         +:+      #
 #    By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/02/15 07:36:15 by dtelnov           #+#    #+#              #
-#    Updated: 2023/04/20 17:29:52 by dtelnov          ###   ########.fr        #
+#    Created: 2023/05/11 05:11:21 by dtelnov           #+#    #+#              #
+#    Updated: 2023/05/11 06:06:19 by dtelnov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= push_swap
+NAME = push_swap
+PROJECT_NAME = push_swap
 
-INCLUDE		= includes
-SRC_DIR		= src/
-OBJ_DIR		= objs/
-FT_PRINTF	= ft_printf
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -I includes/ -I libft/includes/
+LIBFT = -L libft -lft
+RM = rm -rf
 
-CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -g3
+# Reset
+NC = \033[0m
 
-RM			= rm -f
+# Colors
+YELLOW = \033[0;33m
+GREEN = \033[0;32m
+BLUE = \033[0;34m
+RED = \033[0;31m
+PURPLE = \033[0;35m
+CYAN = \033[0;36m
+BLACK = \033[0;30m
+WHITE = \033[0;37m
 
-SRC_FILES_S	=	push_swap \
-				parsing \
-				push \
-				reverse_rotate \
-				rotate \
-				swap \
-				utils_stack \
-				utils \
-				utils2 \
-				presort \
-				sort \
-				position \
-				cost \
-				move \
-				sort_three_numbers \
-				sort_five_numbers \
+# Colors
+BYELLOW = \033[1;33m
+BGREEN = \033[1;32m
+BBLUE = \033[1;34m
+BRED = \033[1;31m
+BPURPLE = \033[1;35m
+BCYAN = \033[1;36m
+BBLACK = \033[1;30m
+BWHITE = \033[1;37m
 
-OBJF		=	.cache_exists
+SRC_DIR = sources/
 
-SRC_S 		= 	${addprefix ${SRC_DIR}, ${addsuffix .c, ${SRC_FILES_S}}}
-OBJ_S 		= 	${addprefix ${OBJ_DIR}, ${addsuffix .o, ${SRC_FILES_S}}}
+FILES = move \
+		parsing \
+		position \
+		presort \
+		push_swap \
+		push \
+		reverse_rotate \
+		rotate \
+		sort \
+		swap \
+		utils_stack \
+		utils \
 
-all:		${NAME}
+SRCS = 	$(addsuffix .c, $(addprefix $(SRC_DIR), $(FILES)))
 
-bonus:		all
+OBJS = $(SRCS:.c=.o)
 
-${NAME}:
-			${MAKE} -C ${FT_PRINTF}
-			${MAKE} push_swap
+TOTAL = $(words $(SRCS))
+COUNT = 0
 
-push_swap:	${OBJ_S}
-			@${CC} ${OBJ_S} -L ${FT_PRINTF} -lftprintf -o ${NAME}
+all: $(NAME)
 
-${OBJ_DIR}%.o: ${SRC_DIR}%.c | ${OBJF}
-			@${CC} ${CFLAGS} -I ${INCLUDE} -I ${FT_PRINTF}/includes -c $< -o $@
+$(NAME): $(OBJS)
+	@make --no-print-directory -C libft/
+	@echo "\n\n[🔘] $(BGREEN)Compiling $(PROJECT_NAME)..."
+	@$(CC) $(CFLAGS) $(SRCS) -o $(NAME) $(LIBFT)
+	@echo "$(NC)"
+	@printf "$(BBLACK)[%1d/%1d] 100%%\t$(BWHITE)All files have been compiled ✔️$(NC)\n" $(COUNT) $(TOTAL)
+	@echo "[💠] $(BBLACK)$(NAME)\t$(BWHITE)Executable created ✔️\n$(NC)"
 
-${OBJF}:
-			@mkdir -p ${OBJ_DIR}
+%.o: %.c
+	@printf "[🔄] $(BPURPLE)Generating $(PROJECT_NAME) objects... %-33.33s\r$(NC)" $@
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(eval COUNT=$(shell echo $$(($(COUNT)+1))))
+	@$(eval PERCENT:=$(shell echo $$((100*$(COUNT)/$(TOTAL)))))
+
+bonus: all
 
 clean:
-			@${RM} -r ${OBJ_DIR}
+	@$(RM) $(OBJS)
+	@make --no-print-directory clean -C libft/
+	@echo "[🧼] $(BYELLOW)Objects $(YELLOW)files have been cleaned from $(PROJECT_NAME) ✔️$(NC)"
 
-fclean:		clean
-			make fclean -C ${FT_PRINTF}
-			@${RM} ${NAME}
-re:			fclean all
+fclean: clean
+	@$(RM) $(NAME)
+	@make --no-print-directory fclean -C libft/
+	@echo "[🚮] $(BRED)All $(RED)files have been cleaned ✔️$(NC)"
 
-.PHONY:		all clean fclean re
+re: clean all
+
+.PHONY: bonus all clean fclean re
