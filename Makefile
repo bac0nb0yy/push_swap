@@ -6,7 +6,7 @@
 #    By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/11 05:11:21 by dtelnov           #+#    #+#              #
-#    Updated: 2023/05/11 06:06:19 by dtelnov          ###   ########.fr        #
+#    Updated: 2023/05/11 08:08:42 by dtelnov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,9 +56,13 @@ FILES = move \
 		utils_stack \
 		utils \
 
+FILES_B = checker \
+
 SRCS = 	$(addsuffix .c, $(addprefix $(SRC_DIR), $(FILES)))
+SRCS_B = $(addsuffix .c, $(addprefix $(SRC_DIR), $(FILES_B)))
 
 OBJS = $(SRCS:.c=.o)
+OBJS_B = $(SRCS_B:.c=.o)
 
 TOTAL = $(words $(SRCS))
 COUNT = 0
@@ -79,7 +83,11 @@ $(NAME): $(OBJS)
 	@$(eval COUNT=$(shell echo $$(($(COUNT)+1))))
 	@$(eval PERCENT:=$(shell echo $$((100*$(COUNT)/$(TOTAL)))))
 
-bonus: all
+bonus: all $(OBJS_B)
+	@$(CC) $(CFLAGS) $(SRCS_B) -o checker $(LIBFT)
+	@echo "$(NC)"
+	@printf "$(BBLACK)[%1d/%1d] 100%%\t$(BWHITE)All files have been compiled ✔️$(NC)\n" $(COUNT) $(TOTAL)
+	@echo "[💠] $(BBLACK)$(NAME)\t$(BWHITE)Executable created ✔️\n$(NC)"
 
 clean:
 	@$(RM) $(OBJS)
