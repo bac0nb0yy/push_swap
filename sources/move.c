@@ -61,23 +61,23 @@ void	do_move(t_stack *stack_a, t_stack *stack_b, int cost_a, int cost_b)
 {
 	while (cost_a < 0 && cost_b < 0)
 	{
-		rrr(stack_a, stack_b, 1);
+		rrr(stack_a, stack_b, 1, true);
 		++cost_a;
 		++cost_b;
 	}
 	while (cost_a > 0 && cost_b > 0)
 	{
-		rr(stack_a, stack_b, 1);
+		rr(stack_a, stack_b, 1, true);
 		--cost_a;
 		--cost_b;
 	}
 	if (cost_a > 0)
-		ra(stack_a, cost_a, 0);
+		ra(stack_a, cost_a, true);
 	else
-		rra(stack_a, ft_abs(cost_a), 0);
+		rra(stack_a, ft_abs(cost_a), true);
 	if (cost_b > 0)
-		rb(stack_b, cost_b, 0);
+		rb(stack_b, cost_b, true);
 	else
-		rrb(stack_b, ft_abs(cost_b), 0);
-	pa(stack_a, stack_b, 1);
+		rrb(stack_b, ft_abs(cost_b), true);
+	pa(stack_a, stack_b, 1, true);
 }

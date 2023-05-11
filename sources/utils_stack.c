@@ -6,7 +6,7 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 23:12:50 by dtelnov           #+#    #+#             */
-/*   Updated: 2023/05/11 06:22:25 by dtelnov          ###   ########.fr       */
+/*   Updated: 2023/05/11 07:04:43 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	push_back(t_stack *stack, int data)
 	stack->len++;
 }
 
-void	initialize_stack(t_stack	*stack)
+void	initialize_stack(t_stack *stack)
 {
 	stack->len = 0;
 	stack->head = NULL;

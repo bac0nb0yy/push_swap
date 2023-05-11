@@ -6,7 +6,7 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 06:16:50 by dtelnov           #+#    #+#             */
-/*   Updated: 2023/05/11 06:23:16 by dtelnov          ###   ########.fr       */
+/*   Updated: 2023/05/11 07:12:38 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,29 +69,29 @@ void	give_rank_to_node_and_free_array(int *sorted_array, t_stack *stack);
 void	rank_nodes(t_stack *stack);
 
 // push.c
-void	pa(t_stack *stack_a, t_stack *stack_b, int amount);
-void	pb(t_stack *stack_a, t_stack *stack_b, int amount);
+void	pa(t_stack *stack_a, t_stack *stack_b, int amount, bool display);
+void	pb(t_stack *stack_a, t_stack *stack_b, int amount, bool display);
 
 // reverse_rotate.c
-void	rra(t_stack *stack_a, int amount, int all);
-void	rrb(t_stack *stack_b, int amount, int all);
-void	rrr(t_stack *stack_a, t_stack *stack_b, int amount);
+void	rra(t_stack *stack_a, int amount, bool display);
+void	rrb(t_stack *stack_b, int amount, bool display);
+void	rrr(t_stack *stack_a, t_stack *stack_b, int amount, bool display);
 
 // rotate.c
-void	ra(t_stack *stack_a, int amount, int all);
-void	rb(t_stack *stack_b, int amount, int all);
-void	rr(t_stack *stack_a, t_stack *stack_b, int amount);
+void	ra(t_stack *stack_a, int amount, bool display);
+void	rb(t_stack *stack_b, int amount, bool display);
+void	rr(t_stack *stack_a, t_stack *stack_b, int amount, bool display);
+
+// swap.c
+void	sa(t_stack *stack_a, int amount, bool display);
+void	sb(t_stack *stack_b, int amount, bool display);
+void	ss(t_stack *stack_a, t_stack *stack_b, int amount, bool display);
 
 // sort.c
 void	push_all_save_three(t_stack *stack_a, t_stack *stack_b);
 void	shift_stack(t_stack *stack_a);
 void	sort(t_stack *stack_a, t_stack *stack_b);
 void	sort_three_numbers(t_stack *stack);
-
-// swap.c
-void	sa(t_stack *stack_a, int amount, int all);
-void	sb(t_stack *stack_b, int amount, int all);
-void	ss(t_stack *stack_a, t_stack *stack_b, int amount);
 
 // utils_stack.c
 void	clear_stack(t_stack *stack);
