@@ -52,8 +52,8 @@ char	*next_line(char *save)
 	tmp = ft_strchr(save, '\n');
 	if (!tmp)
 	{
-		free(save);
-		return (NULL);
+		save = NULL;
+		return (free(save), NULL);
 	}
 	i = 0;
 	while (save[i] && save[i] != '\n')

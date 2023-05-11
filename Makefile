@@ -6,7 +6,7 @@
 #    By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/11 05:11:21 by dtelnov           #+#    #+#              #
-#    Updated: 2023/05/11 08:08:42 by dtelnov          ###   ########.fr        #
+#    Updated: 2023/05/12 00:56:03 by dtelnov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = push_swap
 PROJECT_NAME = push_swap
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I includes/ -I libft/includes/
+CFLAGS = -Wall -Wextra -Werror -g3 -I includes/ -I libft/includes/
 LIBFT = -L libft -lft
 RM = rm -rf
 
@@ -64,7 +64,7 @@ SRCS_B = $(addsuffix .c, $(addprefix $(SRC_DIR), $(FILES_B)))
 OBJS = $(SRCS:.c=.o)
 OBJS_B = $(SRCS_B:.c=.o)
 
-TOTAL = $(words $(SRCS))
+TOTAL = $(words $(SRCS) $(SRCS_B))
 COUNT = 0
 
 all: $(NAME)
@@ -91,11 +91,13 @@ bonus: all $(OBJS_B)
 
 clean:
 	@$(RM) $(OBJS)
+	@$(RM) $(OBJS_B)
 	@make --no-print-directory clean -C libft/
 	@echo "[🧼] $(BYELLOW)Objects $(YELLOW)files have been cleaned from $(PROJECT_NAME) ✔️$(NC)"
 
 fclean: clean
 	@$(RM) $(NAME)
+	@$(RM) checker
 	@make --no-print-directory fclean -C libft/
 	@echo "[🚮] $(BRED)All $(RED)files have been cleaned ✔️$(NC)"
 
