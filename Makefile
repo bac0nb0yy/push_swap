@@ -6,7 +6,7 @@
 #    By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/11 05:11:21 by dtelnov           #+#    #+#              #
-#    Updated: 2023/05/12 03:30:30 by dtelnov          ###   ########.fr        #
+#    Updated: 2023/05/12 18:15:43 by dtelnov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,9 +57,15 @@ FILES = move \
 		utils \
 
 FILES_B = checker \
+		  checker_utils \
 		  parsing \
 		  utils_stack \
+		  utils \
 		  presort \
+		  push \
+		  reverse_rotate \
+		  rotate \
+		  swap \
 
 SRCS = 	$(addsuffix .c, $(addprefix $(SRC_DIR), $(FILES)))
 SRCS_B = $(addsuffix .c, $(addprefix $(SRC_DIR), $(FILES_B)))

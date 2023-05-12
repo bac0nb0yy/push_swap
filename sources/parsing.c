@@ -6,7 +6,7 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 23:16:48 by dtelnov           #+#    #+#             */
-/*   Updated: 2023/05/11 06:16:21 by dtelnov          ###   ########.fr       */
+/*   Updated: 2023/05/12 17:45:30 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	parse_stack(t_stack *stack_a, t_stack *stack_b, char **av, int ac)
 		new_data = parsing_atoi(av[i], stack_a, stack_b);
 		if (check_doublons(new_data, stack_a, stack_b))
 			clean_exit_error(ERROR_DOUBLONS, 2, stack_a, stack_b);
-		push_back(stack_a, new_data);
+		if (!push_back(stack_a, new_data))
+			clean_exit_error(ERROR_MALLOC, 2, stack_a, stack_b);
 		i++;
 	}
 	rank_nodes(stack_a);

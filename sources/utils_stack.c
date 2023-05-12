@@ -6,7 +6,7 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 23:12:50 by dtelnov           #+#    #+#             */
-/*   Updated: 2023/05/11 07:04:43 by dtelnov          ###   ########.fr       */
+/*   Updated: 2023/05/12 17:55:43 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,13 @@ void	link_head_tail(t_stack *stack)
 	}
 }
 
-void	push_back(t_stack *stack, int data)
+bool	push_back(t_stack *stack, int data)
 {
 	t_node	*current_node;
 
 	current_node = malloc(sizeof(t_node));
+	if (!current_node)
+		return (false);
 	current_node->data = data;
 	current_node->rank = -1;
 	if (stack->len == 0)
@@ -51,13 +53,14 @@ void	push_back(t_stack *stack, int data)
 		stack->tail = current_node;
 		link_head_tail(stack);
 		stack->len++;
-		return ;
+		return (true);
 	}
 	current_node->prev = stack->tail;
 	stack->tail->next = current_node;
 	stack->tail = current_node;
 	link_head_tail(stack);
 	stack->len++;
+	return (true);
 }
 
 void	initialize_stack(t_stack *stack)

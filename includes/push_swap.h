@@ -6,7 +6,7 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 06:16:50 by dtelnov           #+#    #+#             */
-/*   Updated: 2023/05/12 03:16:37 by dtelnov          ###   ########.fr       */
+/*   Updated: 2023/05/12 18:29:14 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # define ERROR_DOUBLONS		"Error\nDoublons detected\n"
 # define ERROR_NOT_DIGITS	"Error\nIncorrect numbers given\n"
 # define ERROR_OVER_UNDER	"Error\nOverflow/Underflow\n"
+# define ERROR_CMD			"Error\nBad instructions found\n"
+# define ERROR_MALLOC		"Error\nMalloc() failed\n"
 
 typedef struct s_node
 {
@@ -96,7 +98,7 @@ void	sort_three_numbers(t_stack *stack);
 // utils_stack.c
 void	clear_stack(t_stack *stack);
 void	link_head_tail(t_stack *stack);
-void	push_back(t_stack *stack, int data);
+bool	push_back(t_stack *stack, int data);
 void	initialize_stack(t_stack *stack);
 void	clean_exit_error(char *message_error, int fd, t_stack *stack_a,
 			t_stack *stack_b);
@@ -107,4 +109,13 @@ int		find_biggest(t_stack *stack);
 void	get_position(t_stack *stack);
 int		find_pos(t_stack *stack, int to_find);
 bool	is_sorted(t_stack *stack);
+
+// checker.c
+char	**parse_instructions(char *curr);
+
+// checker_utils.c
+bool	check_valid_all(char **all);
+char	**ft_realloc(char **old, int old_len, char *to_add);
+void	free_instructions(char **to_free);
+void	free_all(t_stack *stack_a, t_stack *stack_b, char **all, char *msg);
 #endif
