@@ -6,7 +6,7 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 06:16:50 by dtelnov           #+#    #+#             */
-/*   Updated: 2023/05/11 07:12:38 by dtelnov          ###   ########.fr       */
+/*   Updated: 2023/05/12 03:16:37 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	sort_three_numbers(t_stack *stack);
 void	clear_stack(t_stack *stack);
 void	link_head_tail(t_stack *stack);
 void	push_back(t_stack *stack, int data);
-void	initialize_stack(t_stack	*stack);
+void	initialize_stack(t_stack *stack);
 void	clean_exit_error(char *message_error, int fd, t_stack *stack_a,
 			t_stack *stack_b);
 

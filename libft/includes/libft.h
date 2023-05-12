@@ -6,7 +6,7 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 18:52:21 by dtelnov           #+#    #+#             */
-/*   Updated: 2023/05/11 06:08:28 by dtelnov          ###   ########.fr       */
+/*   Updated: 2023/05/12 03:00:06 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,4 +124,6 @@ bool	ft_compstr(char *s1, char *s2);
 char	*ft_longest_array(char *s1, char*s2);
 
 void	swap_xor(int *a, int *b);
+
+char	*read_instruction(char *buffer, int fd);
 #endif

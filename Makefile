@@ -6,7 +6,7 @@
 #    By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/11 05:11:21 by dtelnov           #+#    #+#              #
-#    Updated: 2023/05/12 00:56:03 by dtelnov          ###   ########.fr        #
+#    Updated: 2023/05/12 03:30:30 by dtelnov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,9 @@ FILES = move \
 		utils \
 
 FILES_B = checker \
+		  parsing \
+		  utils_stack \
+		  presort \
 
 SRCS = 	$(addsuffix .c, $(addprefix $(SRC_DIR), $(FILES)))
 SRCS_B = $(addsuffix .c, $(addprefix $(SRC_DIR), $(FILES_B)))
@@ -77,17 +80,19 @@ $(NAME): $(OBJS)
 	@printf "$(BBLACK)[%1d/%1d] 100%%\t$(BWHITE)All files have been compiled ✔️$(NC)\n" $(COUNT) $(TOTAL)
 	@echo "[💠] $(BBLACK)$(NAME)\t$(BWHITE)Executable created ✔️\n$(NC)"
 
+bonus: $(OBJS_B)
+	@make --no-print-directory -C libft/
+	@echo "\n\n[🔘] $(BGREEN)Compiling $(PROJECT_NAME)..."
+	@$(CC) $(CFLAGS) $(SRCS_B) -o checker $(LIBFT)
+	@echo "$(NC)"
+	@printf "$(BBLACK)[%1d/%1d] 100%%\t$(BWHITE)All files have been compiled ✔️$(NC)\n" $(COUNT) $(TOTAL)
+	@echo "[💠] $(BBLACK)$(NAME)\t$(BWHITE)Executable created ✔️\n$(NC)"
+
 %.o: %.c
 	@printf "[🔄] $(BPURPLE)Generating $(PROJECT_NAME) objects... %-33.33s\r$(NC)" $@
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@$(eval COUNT=$(shell echo $$(($(COUNT)+1))))
 	@$(eval PERCENT:=$(shell echo $$((100*$(COUNT)/$(TOTAL)))))
-
-bonus: all $(OBJS_B)
-	@$(CC) $(CFLAGS) $(SRCS_B) -o checker $(LIBFT)
-	@echo "$(NC)"
-	@printf "$(BBLACK)[%1d/%1d] 100%%\t$(BWHITE)All files have been compiled ✔️$(NC)\n" $(COUNT) $(TOTAL)
-	@echo "[💠] $(BBLACK)$(NAME)\t$(BWHITE)Executable created ✔️\n$(NC)"
 
 clean:
 	@$(RM) $(OBJS)
@@ -101,6 +106,6 @@ fclean: clean
 	@make --no-print-directory fclean -C libft/
 	@echo "[🚮] $(BRED)All $(RED)files have been cleaned ✔️$(NC)"
 
-re: clean all
+re: clean $(NAME)
 
 .PHONY: bonus all clean fclean re
