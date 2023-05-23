@@ -6,7 +6,7 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 07:24:41 by dtelnov           #+#    #+#             */
-/*   Updated: 2023/05/12 20:13:01 by dtelnov          ###   ########.fr       */
+/*   Updated: 2023/05/23 10:51:34 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ bool	is_valid(t_stack *stack_a, t_stack *stack_b)
 		(clear_stack(stack_a), clear_stack(stack_b));
 		return (ft_printf("OK\n"), EXIT_SUCCESS);
 	}
+	(clear_stack(stack_a), clear_stack(stack_b));
 	return (ft_printf("KO\n"), EXIT_SUCCESS);
 }
 
@@ -96,8 +97,8 @@ int	main(int ac, char **av)
 	t_stack	stack_a;
 	t_stack	stack_b;
 
-	if (ac < 3)
-		return (EXIT_FAILURE);
+	if (ac == 1)
+		return (EXIT_SUCCESS);
 	(initialize_stack(&stack_a), initialize_stack(&stack_b));
 	parse_stack(&stack_a, &stack_b, av, ac);
 	curr = get_next_line(0);
@@ -108,8 +109,6 @@ int	main(int ac, char **av)
 			return (free_all(&stack_a, &stack_b, all, ERROR_CMD), 1);
 		do_cmds(&stack_a, &stack_b, all);
 		free_instructions(all);
-		return (is_valid(&stack_a, &stack_b));
 	}
-	(clear_stack(&stack_a), clear_stack(&stack_b));
-	return (EXIT_SUCCESS);
+	return (is_valid(&stack_a, &stack_b));
 }

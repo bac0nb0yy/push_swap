@@ -6,7 +6,7 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 17:05:51 by dtelnov           #+#    #+#             */
-/*   Updated: 2023/05/11 05:45:58 by dtelnov          ###   ########.fr       */
+/*   Updated: 2023/05/23 10:52:37 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	gnome_sort(int *array, int len_array)
 	{
 		if (i == 0)
 			++i;
-		if (array[i] >= array[i - 1])
+		else if (array[i] >= array[i - 1])
 			++i;
 		else
 		{
