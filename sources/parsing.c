@@ -6,7 +6,7 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 23:16:48 by dtelnov           #+#    #+#             */
-/*   Updated: 2023/05/12 17:45:30 by dtelnov          ###   ########.fr       */
+/*   Updated: 2023/05/23 03:51:42 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	parse_stack(t_stack *stack_a, t_stack *stack_b, char **av, int ac)
 {
-	int		i;
-	int		new_data;
+	int	i;
+	int	new_data;
 
 	i = 1;
 	while (i < ac)
@@ -44,18 +44,20 @@ bool	overflow_underflow_check(int *n, char *s, int *i)
 
 int	parsing_atoi(char *s, t_stack *stack_a, t_stack *stack_b)
 {
-	int			result;
-	int			i;
-	int			sign;
+	int	result;
+	int	i;
+	int	sign;
 
+	if (!s || !*s)
+		clean_exit_error(ERROR_NOT_DIGITS, 2, stack_a, stack_b);
 	if (ft_compstr(s, "-2147483648"))
 		return (INT_MIN);
 	i = 0;
 	sign = -1 * (s[0] == '-');
 	result = 0;
-	if (sign == -1)
+	if (sign == -1 || s[0] == '+')
 		++i;
-	else
+	if (sign == 0)
 		sign = 1;
 	while (s[i])
 	{
